@@ -86,3 +86,18 @@ export const downloadSummaryZip = (params: any) =>
 export const downloadTabelsZip = (params: any) =>
   api.get('/export/zip/tabels', { params, responseType: 'blob' });
 export const sendEmail = (data: any) => api.post('/export/send-email', data);
+
+// Roster (teacher student management + interactive tabel)
+export const getStudents = (classId: number) => api.get(`/roster/${classId}/students`);
+export const addStudent = (classId: number, data: any) =>
+  api.post(`/roster/${classId}/students`, data);
+export const updateStudent = (classId: number, studentId: number, data: any) =>
+  api.put(`/roster/${classId}/students/${studentId}`, data);
+export const removeStudent = (classId: number, studentId: number) =>
+  api.delete(`/roster/${classId}/students/${studentId}`);
+export const getTabel = (classId: number, mealDate: string) =>
+  api.get(`/roster/${classId}/tabel/${mealDate}`);
+export const saveTabel = (data: any) => api.post('/roster/tabel/save', data);
+export const submitTabel = (data: any) => api.post('/roster/tabel/submit', data);
+export const exportTabelExcel = (classId: number, mealDate: string) =>
+  api.get(`/roster/${classId}/export-tabel/${mealDate}`, { responseType: 'blob' });
