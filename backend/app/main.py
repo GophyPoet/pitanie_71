@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.database import engine, Base
-from app.api import auth, users, classes, uploads, summary, plans, discrepancies, export
+from app.api import auth, users, classes, uploads, summary, plans, discrepancies, export, roster
 
 logging.basicConfig(level=logging.INFO)
 
@@ -34,6 +34,7 @@ app.include_router(summary.router, prefix="/api")
 app.include_router(plans.router, prefix="/api")
 app.include_router(discrepancies.router, prefix="/api")
 app.include_router(export.router, prefix="/api")
+app.include_router(roster.router, prefix="/api")
 
 
 @app.get("/api/health")

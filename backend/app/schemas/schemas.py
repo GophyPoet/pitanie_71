@@ -242,6 +242,53 @@ class EmailSendRequest(BaseModel):
     subject: str = ""
 
 
+# ──── Student (teacher roster management) ────
+class StudentOut(BaseModel):
+    id: int
+    full_name: str
+    class_id: int
+    is_active: bool
+    notes: str
+    benefit_code: str | None = None
+    class Config:
+        from_attributes = True
+
+class StudentCreate(BaseModel):
+    full_name: str
+    benefit_code: str | None = None
+    notes: str = ""
+
+class StudentUpdate(BaseModel):
+    full_name: str | None = None
+    benefit_code: str | None = None
+    notes: str | None = None
+    is_active: bool | None = None
+
+
+# ──── Interactive meal record (teacher fills in browser) ────
+class MealRecordEntry(BaseModel):
+    """One student's meal marks for a single day."""
+    student_id: int
+    avangard_breakfast: int = 0
+    avangard_lunch: int = 0
+    avangard_shved: int = 0
+    lyubava_breakfast: int = 0
+    lyubava_lunch: int = 0
+    lyubava_shved: int = 0
+
+class InteractiveTabelSave(BaseModel):
+    """Full interactive tabel for a class on a date (save draft)."""
+    class_id: int
+    meal_date: date
+    records: list[MealRecordEntry]
+
+class InteractiveTabelSubmit(BaseModel):
+    """Submit interactive tabel to admin."""
+    class_id: int
+    meal_date: date
+    records: list[MealRecordEntry]
+
+
 # ──── Dashboard Stats ────
 class DashboardStats(BaseModel):
     total_classes: int
